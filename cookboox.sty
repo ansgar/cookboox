@@ -5,11 +5,31 @@
 \ProvidesPackage{cookboox}[%
   2008/10/22 v0.1 recipe-style%
 ]%
-\RequirePackage{clefval}
 
-\newcommand{\energy}[1]{\TheKey{energy}{#1}}
-\newcommand{\step}[2]{#1 -> #2}
-\newenvironment{recipe}[1]{Beginn von #1\\}{\TheValue{energy}\\Ende}
+\newsavebox{\portioninput}
+\newsavebox{\preparationtimeinputhour}\newsavebox{\preparationtimeinputminute}
+\newsavebox{\energyinput}
+\newsavebox{\proteininput}
+\newsavebox{\carbinput}
+\newsavebox{\fatinput}
+\newcommand{\twocol}[2]{\begin{tabular}{p{0.34\linewidth} p{0.65\linewidth}}\raggedleft#1 & #2\\\end{tabular}}
+
+\newcommand{\portion}[1]{\sbox{\portioninput}{#1}}
+\newcommand{\preparationtime}[2]{\sbox{\preparationtimeinputhour}{#1}\sbox{\preparationtimeinputminute}{#2}}
+\newcommand{\energy}[2]{\sbox{\energyinputjoule}{#1}\sbox{\energyinputcal}{#2}}
+\newcommand{\protein}[1]{\sbox{\proteininput}{#1}}
+\newcommand{\carb}[1]{\sbox{\carbinput}{#1}}
+\newcommand{\fat}[1]{\sbox{\fatinput}{#1}}
+\newcommand{\step}[2]{\twocol{#1}{#2}}
+
+\newenvironment{recipe}[1]{\section{#1}\\}{%
+\twocol{Portionen}{\usebox{\portioninput}}
+\twocol{Zubereitungszeit}{\usebox{\preparationtimeinputhour}:\usebox{\preparationtimeinputminute}}
+\twocol{Naehrwert}{\usebox{\energyinputjoule}kJ / \usebox{\energyinputjoule}kcal}
+\twocol{Eiweiß}{\usebox{\proteininput}}
+\twocol{Kohlenhydrate}{\usebox{\carbinput}}
+\twocol{Fett}{\usebox{\fatinput}}%
+}
 
 \endinput
 %%
