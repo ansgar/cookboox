@@ -5,6 +5,11 @@
 \ProvidesPackage{cookboox}[%
   2008/10/22 v0.1 recipe-style%
 ]%
+\RequirePackage{clefval}
+
+\newcommand{\energy}[1]{\TheKey{energy}{#1}}
+\newcommand{\step}[2]{#1 -> #2}
+\newenvironment{recipe}[1]{Beginn von #1\\}{\TheValue{energy}\\Ende}
 
 \endinput
 %%
