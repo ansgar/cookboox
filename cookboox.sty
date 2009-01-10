@@ -6,30 +6,27 @@
   2008/10/22 v0.1 recipe-style%
 ]%
 
-\newsavebox{\portioninput}
-\newsavebox{\preparationtimeinputhour}\newsavebox{\preparationtimeinputminute}
-\newsavebox{\energyinput}
-\newsavebox{\proteininput}
-\newsavebox{\carbinput}
-\newsavebox{\fatinput}
-\newcommand{\twocol}[2]{\begin{tabular}{p{0.34\linewidth} p{0.65\linewidth}}\raggedleft#1 & #2\\\end{tabular}}
-
-\newcommand{\portion}[1]{\sbox{\portioninput}{#1}}
-\newcommand{\preparationtime}[2]{\sbox{\preparationtimeinputhour}{#1}\sbox{\preparationtimeinputminute}{#2}}
-\newcommand{\energy}[2]{\sbox{\energyinputjoule}{#1}\sbox{\energyinputcal}{#2}}
-\newcommand{\protein}[1]{\sbox{\proteininput}{#1}}
-\newcommand{\carb}[1]{\sbox{\carbinput}{#1}}
-\newcommand{\fat}[1]{\sbox{\fatinput}{#1}}
-\newcommand{\step}[2]{\twocol{#1}{#2}}
-
-\newenvironment{recipe}[1]{\section{#1}\\}{%
-\twocol{Portionen}{\usebox{\portioninput}}
-\twocol{Zubereitungszeit}{\usebox{\preparationtimeinputhour}:\usebox{\preparationtimeinputminute}}
-\twocol{Naehrwert}{\usebox{\energyinputjoule}kJ / \usebox{\energyinputjoule}kcal}
-\twocol{Eiweiß}{\usebox{\proteininput}}
-\twocol{Kohlenhydrate}{\usebox{\carbinput}}
-\twocol{Fett}{\usebox{\fatinput}}%
+%two-colum-look with right-aligned left column and left-aligned right column
+\newcommand{\cbxitwocol}[2]%
+{
+\begin{tabular}%
+{p{0.34\linewidth} p{0.65\linewidth}}
+\raggedleft#1 & \raggedright#2
+\end{tabular}
 }
+
+%command to store given information in boxes
+%these commands are used in the document
+\newcommand{\cbxsource}[1]{\begin{flushright}\mbox{Quelle: #1}\end{flushright}}
+\newcommand{\cbxportion}[1]{\cbxitwocol{Portionen}{#1}}
+\newcommand{\cbxpreparationtime}[2]{\cbxitwocol{Zubereitungszeit}{#1:#2}}
+\newcommand{\cbxenergy}[2]{\cbxitwocol{Nährwert}{#1 kJ / #2 kCal}}
+\newcommand{\cbxprotein}[1]{\cbxitwocol{Eiweiß}{#1}}
+\newcommand{\cbxcarb}[1]{\cbxitwocol{Kohlenhydrate}{#1}}
+\newcommand{\cbxfat}[1]{\cbxitwocol{Fett}{#1}}
+\newcommand{\cbxstep}[2]{\cbxitwocol{#1}{#2}}
+
+\newenvironment{cbxrecipe}[1]{\section{#1}}{}
 
 \endinput
 %%
